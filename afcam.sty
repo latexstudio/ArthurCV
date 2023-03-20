@@ -1,0 +1,74 @@
+% Modification to awensome-cv class
+
+% \RequirePackage{carlito}
+% Flexible tables
+\RequirePackage{tabu}
+\RequirePackage{fancyhdr}
+
+% A4 paper size by default, use 'letterpaper' for US letter
+\geometry{left=1.0cm, top=1.0cm, right=1.0cm, bottom=1.0cm, footskip=.5cm}
+
+\colorlet{awesome}{black}
+\colorlet{darktext}{black}
+\colorlet{text}{black}
+\colorlet{graytext}{black}
+\colorlet{lighttext}{black}
+\colorlet{sectiondivider}{black}
+
+
+
+% For elements of entry
+\renewcommand*{\entrytitlestyle}[1]{{\fontsize{12pt}{1em}\bodyfont\bfseries\color{darktext} #1}}
+\renewcommand*{\entrypositionstyle}[1]{{\fontsize{10pt}{1em}\bodyfont\color{graytext} #1}}
+\renewcommand*{\entrydatestyle}[1]{{\fontsize{8pt}{1em}\bodyfontlight\slshape\color{graytext} #1}}
+\renewcommand*{\entrylocationstyle}[1]{{\fontsize{9pt}{1em}\bodyfontlight\slshape\color{awesome} #1}}
+\renewcommand*{\descriptionstyle}[1]{{\fontsize{10pt}{1em}\bodyfontlight\upshape\color{text} #1}}
+
+%% Define helper macros a user can change easily
+% Header
+\renewcommand{\acvHeaderNameDelim}{\space}
+\renewcommand{\acvHeaderAfterNameSkip}{.4mm}
+\renewcommand{\acvHeaderAfterPositionSkip}{.4mm}
+\renewcommand{\acvHeaderAfterAddressSkip}{-.5mm}
+\renewcommand{\acvHeaderIconSep}{\space}
+\renewcommand{\acvHeaderSocialSep}{\quad\textbar\quad}
+\renewcommand{\acvHeaderAfterSocialSkip}{6mm}
+\renewcommand{\acvHeaderAfterQuoteSkip}{5mm}
+
+% Others
+\renewcommand{\acvSectionTopSkip}{1mm}
+\renewcommand{\acvSectionContentTopSkip}{1mm}
+
+% Define a section for CV
+% Usage: \cvsection{<section-title>}
+ \def\beforesectionheaderhrulespace{1pt}
+  \def\sectionheaderhrlueheight{0.9pt}
+  \def\aftersectionheaderspace{-3pt}
+
+% Define a section for CV
+% Usage: \cvsection{<section-title>}
+\renewcommand{\cvsection}[1]{%
+  \vspace{\acvSectionTopSkip}
+  \sectionstyle{#1}
+  \phantomsection
+  \phantomsection
+  \vspace*{\beforesectionheaderhrulespace}
+  \hrule height \sectionheaderhrlueheight
+  \vspace*{\aftersectionheaderspace}
+  % \vhrulefill{0.9pt}
+}
+
+% Define an entry of cv information
+% Usage: \cventry{<position>}{<title>}{<location>}{<date>}{<description>}
+\renewcommand*{\cventry}[5]{%
+  \vspace{-1.0mm}
+  \setlength\tabcolsep{0pt}
+  \setlength{\extrarowheight}{0pt}
+  \begin{tabular*}{\textwidth}{@{\extracolsep{\fill}} L{\textwidth - 4.5cm} R{4.5cm}}
+    \ifempty{#3#4}
+      {\entrytitlestyle{#1} & \entrydatestyle{#2} \\}
+      {\entrytitlestyle{#1} & \entrylocationstyle{#2} \\
+      \entrypositionstyle{#3} & \entrydatestyle{#4} \\}
+    \multicolumn{2}{L{\textwidth}}{\descriptionstyle{#5}}
+  \end{tabular*}%
+}
